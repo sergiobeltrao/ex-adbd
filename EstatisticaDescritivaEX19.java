@@ -1,19 +1,21 @@
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 public class EstatisticaDescritivaEX19 {
     public static void main(String[] args) {
 
         int[] tempos = {135, 90, 85, 121, 83, 69, 159, 177, 120, 133, 90, 80, 70, 93, 80, 110};
 
-        System.out.printf("Média: %.3fs%n", mediaItensDoArray(tempos));
-        System.out.printf("Mediana: %.3fs%n", medianaItensDoArray(tempos));
-        System.out.printf("Moda: %.3fs%n", moda(tempos));
+        System.out.printf("Média: %.3fs%n", media(tempos));
+        System.out.printf("Mediana: %.3fs%n", mediana(tempos));
+        System.out.println("Moda: " + moda(tempos));
         System.out.printf("Desvio padrão: %.3fs%n", desvioPadrao(tempos));
 
         // TODO: interprete os resultados
     }
 
-    public static double mediaItensDoArray(int[] valores) {
+    public static double media(int[] valores) {
 
         double total = 0.0;
 
@@ -24,7 +26,7 @@ public class EstatisticaDescritivaEX19 {
         return total / valores.length;
     }
 
-    public static double medianaItensDoArray(int[] valores) {
+    public static double mediana(int[] valores) {
 
         Arrays.sort(valores);
 
@@ -46,7 +48,7 @@ public class EstatisticaDescritivaEX19 {
 
         double[] variancia = new double[valores.length];
 
-        double media = mediaItensDoArray(valores);
+        double media = media(valores);
 
         for (int i = 0; variancia.length > i; i++) {
             variancia[i] = Math.abs(valores[i] - media);
@@ -67,9 +69,62 @@ public class EstatisticaDescritivaEX19 {
         return Math.sqrt(totalVarianciaQuadratica / (valores.length - 1));
     }
 
-    public static double moda(int[] valores) {
-        // TODO: moda
+    public static String moda(int[] valores) {
 
-        return 0.0;
+        // Armazena o número e a incidência em uma matriz.
+        int[][] numeroIncidencia = new int[valores.length][2];
+
+        for (int i = 0; valores.length > i; i++) {
+
+            int contadorDeRepeticao = 0;
+
+            for (int tempo : valores) {
+                if (valores[i] == tempo) {
+                    contadorDeRepeticao++;
+                }
+            }
+
+            numeroIncidencia[i][0] = valores[i];
+            numeroIncidencia[i][1] = contadorDeRepeticao;
+        }
+
+        // Procura o maior número de incidências.
+        int maiorNumero = 0;
+
+        for (int[] ints : numeroIncidencia) {
+
+            for (int j = 0; numeroIncidencia.length > j; j++) {
+                if (ints[1] > maiorNumero) {
+                    maiorNumero = ints[1];
+                    break;
+                }
+            }
+        }
+
+        // Armazena somente os valores de maior incidência em um novo array.
+        int[] moda = new int[valores.length];
+
+        for (int i = 0; i < numeroIncidencia.length; i++) {
+            if (numeroIncidencia[i][1] == maiorNumero) {
+                moda[i] = numeroIncidencia[i][0];
+            }
+        }
+
+        // Filtra pelos números não repetidos diferentes de zero.
+        Set<Integer> numerosDiferentesDeZero = new HashSet<>();
+
+        for (int valor : moda) {
+            if (valor != 0) {
+                numerosDiferentesDeZero.add(valor);
+            }
+        }
+
+        StringBuilder saida = new StringBuilder();
+
+        for (int numero : numerosDiferentesDeZero) {
+            saida.append(numero).append("s ");
+        }
+
+        return saida.toString();
     }
 }
