@@ -5,13 +5,14 @@ import java.util.Set;
 public class EstatisticaDescritivaEX19 {
     public static void main(String[] args) {
 
-        int[] tempos = { 135, 90, 85, 121, 83, 69, 159, 177, 120, 133, 90, 80, 70, 93, 80, 110 };
+        int[] tempos = {135, 90, 85, 121, 83, 69, 159, 177, 120, 133, 90, 80, 70, 93, 80, 110};
 
         System.out.printf("Média: %.3fs%n", media(tempos));
         System.out.printf("Mediana: %.3fs%n", mediana(tempos));
         System.out.println("Moda: " + moda(tempos));
         System.out.printf("Desvio padrão: %.3fs%n", desvioPadrao(tempos));
 
+        // TODO: interprete os resultados
     }
 
     public static double media(int[] valores) {
@@ -28,6 +29,9 @@ public class EstatisticaDescritivaEX19 {
     public static double mediana(int[] valores) {
 
         Arrays.sort(valores);
+
+        // No exemplo dessa atividade a execução nunca chega no else, mas decidi fazer de forma
+        // que o código funcione independentemente da quantidade de itens no array.
 
         if (valores.length % 2 == 0) {
             int[] meioDoArray = new int[2];
@@ -67,6 +71,7 @@ public class EstatisticaDescritivaEX19 {
 
     public static String moda(int[] valores) {
 
+        // Armazena o número e a incidência em uma matriz.
         int[][] numeroIncidencia = new int[valores.length][2];
 
         for (int i = 0; valores.length > i; i++) {
@@ -83,6 +88,7 @@ public class EstatisticaDescritivaEX19 {
             numeroIncidencia[i][1] = contadorDeRepeticao;
         }
 
+        // Procura o maior número de incidências.
         int maiorNumero = 0;
 
         for (int[] ints : numeroIncidencia) {
@@ -95,6 +101,7 @@ public class EstatisticaDescritivaEX19 {
             }
         }
 
+        // Armazena somente os valores de maior incidência em um novo array.
         int[] moda = new int[valores.length];
 
         for (int i = 0; i < numeroIncidencia.length; i++) {
@@ -103,6 +110,7 @@ public class EstatisticaDescritivaEX19 {
             }
         }
 
+        // Filtra pelos números não repetidos diferentes de zero.
         Set<Integer> numerosDiferentesDeZero = new HashSet<>();
 
         for (int valor : moda) {
