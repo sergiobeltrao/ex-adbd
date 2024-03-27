@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class EstatisticaDescritivaEX20 {
     public static void main(String[] args) {
 
@@ -12,6 +14,7 @@ public class EstatisticaDescritivaEX20 {
                 {76, 85, 1}
         };
 
+        histograma(taxaDeProtrombina);
         System.out.printf("Média: %.3f%n", media(taxaDeProtrombina));
         System.out.printf("Mediana: %.3f%n", mediana(taxaDeProtrombina));
         System.out.printf("Moda: %.3f%n", moda(taxaDeProtrombina));
@@ -143,5 +146,19 @@ public class EstatisticaDescritivaEX20 {
 
         double variancia = totalDesvioFrequencia / (totalFrequencias - 1);
         return Math.sqrt(variancia);
+    }
+
+    public static void histograma(int[][] matriz) {
+        System.out.println("Histograma");
+        for (int[] ints : matriz) {
+            System.out.print(ints[0] + ", " + ints[1] + " | ");
+            int frequencia = ints[2];
+            for (int j = 0; frequencia > j; j++) {
+                System.out.print("█");
+                frequencia--;
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }
