@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class EstatisticaDescritivaEX20 {
+public class Estatistica20 {
     public static void main(String[] args) {
 
         int[] classes = { 16, 26, 36, 46, 56, 66, 76 };
