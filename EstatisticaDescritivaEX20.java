@@ -1,4 +1,4 @@
-public class EX20 {
+public class EstatisticaDescritivaEX20 {
     public static void main(String[] args) {
 
         // Início, fim e frequência.
