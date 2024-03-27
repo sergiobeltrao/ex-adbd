@@ -14,7 +14,7 @@ public class EstatisticaDescritivaEX20 {
                 {76, 85, 1}
         };
 
-        histograma(taxaDeProtrombina);
+        histograma(taxaDeProtrombina, "Histograma de frequência da taxa de protrombina.");
         System.out.printf("Média: %.3f%n", media(taxaDeProtrombina));
         System.out.printf("Mediana: %.3f%n", mediana(taxaDeProtrombina));
         System.out.printf("Moda: %.3f%n", moda(taxaDeProtrombina));
@@ -148,11 +148,11 @@ public class EstatisticaDescritivaEX20 {
         return Math.sqrt(variancia);
     }
 
-    public static void histograma(int[][] matriz) {
-        System.out.println("Histograma");
-        for (int[] ints : matriz) {
-            System.out.print(ints[0] + ", " + ints[1] + " | ");
-            int frequencia = ints[2];
+    public static void histograma(int[][] matriz, String titulo) {
+        System.out.println(titulo);
+        for (int[] freq : matriz) {
+            System.out.print("Entre " + freq[0] + " e " + freq[1] + " |");
+            int frequencia = freq[2];
             for (int j = 0; frequencia > j; j++) {
                 System.out.print("█");
                 frequencia--;
