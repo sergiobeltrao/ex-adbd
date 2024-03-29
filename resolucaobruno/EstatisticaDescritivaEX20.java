@@ -1,6 +1,7 @@
 package resolucaobruno;
 
 import javax.swing.JOptionPane;
+import java.util.Arrays;
 
 public class EstatisticaDescritivaEX20 {
     public static void main(String[] args) {
@@ -36,6 +37,9 @@ public class EstatisticaDescritivaEX20 {
 
         // Exibe os resultados
         JOptionPane.showMessageDialog(null, resultado);
+
+        System.out.println(Arrays.toString(frequencias));
+        System.out.println(Arrays.toString(taxas));
     }
 
     public static double media(int[] taxas, int[] frequencias) {
@@ -43,8 +47,8 @@ public class EstatisticaDescritivaEX20 {
         double somaFrequencias = 0.0;
 
         for (int i = 0; i < taxas.length; i++) {
-            somaValores += taxas[i] * frequencias[i/2];
-            somaFrequencias += frequencias[i/2];
+            somaValores += taxas[i] * frequencias[i / 2];
+            somaFrequencias += frequencias[i / 2];
         }
 
         return somaValores / somaFrequencias;
@@ -84,13 +88,17 @@ public class EstatisticaDescritivaEX20 {
         double moda = 0;
 
         for (int i = 0; i < taxas.length; i += 2) {
-            double li = taxas[i];
-            double h = taxas[i + 1] - li;
+            double li = taxas[i]; // Vai pegar o limite inferior errado. Na última passagem do loop li = 85
+            double h = taxas[i + 1] - li; // Como o intervalo é constante o h vai ter o valor correto atribuído
             double d1 = i == 0 ? 0 : frequencias[i / 2 - 1];
+            // d1 deveria ser a maior frequência menos a imediatamente anterior a ela (nesse exercício deve ser 22 - 0)
             double d2 = i == taxas.length - 2 ? 0 : frequencias[i / 2 + 1];
-            double currentModa = li + (d1 / (d1 + d2)) * h;
+            // d2 deveria ser a maior frequência menos a imediatamente posterior a ela (nesse exercício deve ser 22 - 10)
+            double currentModa = li + (d1 / (d1 + d2)) * h; // A fórmula tá correta
 
             if (frequencias[i / 2] > maxFreq) {
+                // Não entendi porque tá dividindo os valores das frequências.
+                // E isso aqui vai dar sempre true já que a metade de qualquer frequência vai ser maior que 0
                 moda = currentModa;
                 maxFreq = frequencias[i / 2];
             }
@@ -103,7 +111,7 @@ public class EstatisticaDescritivaEX20 {
         double media = media(taxas, frequencias);
         double somaVariancia = 0.0;
         for (int i = 0; i < taxas.length; i++) {
-            somaVariancia += frequencias[i/2] * Math.pow(taxas[i] - media, 2);
+            somaVariancia += frequencias[i / 2] * Math.pow(taxas[i] - media, 2);
         }
         return Math.sqrt(somaVariancia / somaFrequencias(frequencias));
     }
